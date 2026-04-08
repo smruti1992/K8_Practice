@@ -1,19 +1,12 @@
-
-resource "aws_instance" "example" {
-  for_each      = var.instance_type
-  ami           = var.ami_id
-  instance_type = each.value
-
-  tags = {
-    Name = each.key
-  }
+module aws_ec2 {
+  source = "./aws_ec2"
+  ami_id = data.aws_ami.linux.id
+  instance_type = var.instance_type
 }
 
+module aws_s3 {
+  count      = var.create_s3 ? 1 : 0
+  source     = "./aws_s3"
+  bucketname = var.bucket
+}
 
-# resource "aws_s3_bucket" "example_bucket" {
-#   bucket = "example-bucket-terraform-2024"
-
-#   tags = {
-#     Name = "ExampleBucket"
-#   }
-# }

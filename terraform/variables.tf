@@ -11,8 +11,14 @@ variable "instance_type" {
   }
 }
 
-variable "state_file" {
-  description = "The name of the Terraform state file in the S3 bucket."
+variable "bucket" {
+  description = "The name of the S3 bucket to create."
   type        = string
-  default     = "terraform.tfstate"
 }
+
+variable "create_s3" {
+  description = "Set to true to create S3 bucket, false to skip."
+  type        = bool
+  default     = false
+}
+
